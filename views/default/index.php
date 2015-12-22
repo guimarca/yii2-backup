@@ -1,3 +1,5 @@
+<?php $this->title = Yii::t('backend', 'Database Backups'); ?>
+
 <div class="backup-default-index">
 
 <?php
