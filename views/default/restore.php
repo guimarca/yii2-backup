@@ -1,4 +1,6 @@
 <?php
+$this->title = Yii::t('backend', 'Restore backup');
+
 $this->params ['breadcrumbs'] [] = [ 
 		'label' => 'Manage',
 		'url' => array (
