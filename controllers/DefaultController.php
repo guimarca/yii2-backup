@@ -24,8 +24,9 @@ class DefaultController extends Controller
 
 		if ( !file_exists($this->_path ))
 		{
-			if (!mkdir($this->_path ))
+			if (!is_writable($this->_path))
 				throw new \yii\web\ServerErrorHttpException(Yii::t('backend', 'I do not have permissions to create the folder: '.$this->_path));
+			mkdir($this->_path )
 			chmod($this->_path, '777');
 		}
 		return $this->_path;
