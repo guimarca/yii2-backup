@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Document */
 /* @var $form yii\widgets\ActiveForm */
 
+$this->title = Yii::t('backend', 'Upload Backup Files');
 
 $this->params['breadcrumbs'][]= [
 'label'	=> 'Upload',
