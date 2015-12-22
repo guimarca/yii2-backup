@@ -24,7 +24,8 @@ class DefaultController extends Controller
 
 		if ( !file_exists($this->_path ))
 		{
-			mkdir($this->_path );
+			if (!mkdir($this->_path ))
+				throw new \yii\web\ServerErrorHttpException(Yii::t('backend', 'I do not have permissions to create the folder: '.$this->_path));
 			chmod($this->_path, '777');
 		}
 		return $this->_path;
@@ -244,7 +245,7 @@ class DefaultController extends Controller
 				$request->sendFile(basename($sqlFile),file_get_contents($sqlFile));
 			}
 		}
-		throw new CHttpException(404, Yii::t('app', 'File not found'));
+		throw new \yii\web\NotFoundHttpException(Yii::t('backend', 'File not found'));
 	}
 
 	public function actionIndex()
@@ -340,26 +341,26 @@ class DefaultController extends Controller
 		{
 			case 'restore':
 				{
-					$this->menu[] = array('label'=>Yii::t('app', 'View Site') , 'url'=>Yii::$app->HomeUrl);
+					$this->menu[] = array('label'=>Yii::t('backend', 'View Site') , 'url'=>Yii::$app->HomeUrl);
 				}
 			case 'create':
 				{
-					$this->menu[] = array('label'=>Yii::t('app', 'List Backup') , 'url'=>array('index'));
+					$this->menu[] = array('label'=>Yii::t('backend', 'List Backup') , 'url'=>array('index'));
 				}
 				break;
 			case 'upload':
 				{
-					$this->menu[] = array('label'=>Yii::t('app', 'Create Backup') , 'url'=>array('create'));
+					$this->menu[] = array('label'=>Yii::t('backend', 'Create Backup') , 'url'=>array('create'));
 				}
 				break;
 			default:
 				{
-					$this->menu[] = array('label'=>Yii::t('app', 'List Backup') , 'url'=>array('index'));
-					$this->menu[] = array('label'=>Yii::t('app', 'Create Backup') , 'url'=>array('create'));
-					$this->menu[] = array('label'=>Yii::t('app', 'Upload Backup') , 'url'=>array('upload'));
-					$this->menu[] = array('label'=>Yii::t('app', 'Restore Backup') , 'url'=>array('restore'));
-					$this->menu[] = array('label'=>Yii::t('app', 'Clean Database') , 'url'=>array('clean'));
-					$this->menu[] = array('label'=>Yii::t('app', 'View Site') , 'url'=>Yii::$app->HomeUrl);
+					$this->menu[] = array('label'=>Yii::t('backend', 'List Backup') , 'url'=>array('index'));
+					$this->menu[] = array('label'=>Yii::t('backend', 'Create Backup') , 'url'=>array('create'));
+					$this->menu[] = array('label'=>Yii::t('backend', 'Upload Backup') , 'url'=>array('upload'));
+					$this->menu[] = array('label'=>Yii::t('backend', 'Restore Backup') , 'url'=>array('restore'));
+					//$this->menu[] = array('label'=>Yii::t('backend', 'Clean Database') , 'url'=>array('clean'));
+					//$this->menu[] = array('label'=>Yii::t('app', 'View Site') , 'url'=>Yii::$app->HomeUrl);
 				}
 				break;
 		}
