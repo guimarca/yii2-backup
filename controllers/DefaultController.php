@@ -230,7 +230,8 @@ class DefaultController extends Controller
 			if ( file_exists($sqlFile))
 				unlink($sqlFile);
 		}
-		else throw new CHttpException(404, Yii::t('app', 'File not found'));
+		else throw new \yii\web\NotFoundHttpException(Yii::t('backend', 'File not found'));
+
 		$this->actionIndex();
 	}
 
