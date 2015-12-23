@@ -203,7 +203,7 @@ class DefaultController extends Controller
 				unlink($sqlFile);
 		}
 		else throw new HttpException(404, Yii::t('app', 'File not found'));
-		return $this->actionIndex();
+		$this->redirect(array('index'));
 	}
 	public function actionDownload($file = null)
 	{
