@@ -223,6 +223,8 @@ class DefaultController extends Controller
 	}
 	public function actionDelete($file = null)
 	{
+	 	$list = $this->getFileList();
+		$file = $list[$id];
 		$this->updateMenuItems();
 		if ( isset($file))
 		{
