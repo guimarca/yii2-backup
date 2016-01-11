@@ -8,7 +8,32 @@ echo GridView::widget([
 		
 		'columns' => array(
 				'name',
-				'size:size',
+				[
+			            'label' => 'Size',
+			            'value' => function ($data)
+			            {
+			                $type = "KB";
+			                switch($type){
+			                    case "KB":
+			                        $filesize = $data['size'] * .0009765625; // bytes to KB
+			                        break;
+			
+			                    case "MB":
+			                        $filesize = ($data['size'] * .0009765625) * .0009765625; // bytes to MB
+			                        break;
+			
+			                    case "GB":
+			                        $filesize = (($data['size'] * .0009765625) * .0009765625) * .0009765625; // bytes to GB
+			                        break;
+			                }
+			                if ($filesize <= 0) {
+			                    return $filesize = 'unknown file size';
+			                }
+			                else {
+			                    return round($filesize, 2).' '.$type;
+			                }
+			            }
+			        ],
 				'create_time',
 				'modified_time:relativeTime',
 				array(
