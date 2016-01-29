@@ -213,7 +213,7 @@ class DefaultController extends Controller
 		if ( isset($file))
 		{
 			$request = Yii::$app->getRequest();
-			$request->sendFile(basename($sqlFile),file_get_contents($sqlFile));
+			$request->sendFile(basename($file),file_get_contents($file));
 			
 		}
 		throw new HttpException(404, Yii::t('app', 'File not found'));
