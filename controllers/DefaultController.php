@@ -207,15 +207,14 @@ class DefaultController extends Controller
 	}
 	public function actionDownload($file = null)
 	{
+		$list = $this->getFileList();
+		$file = $list[$id];
 		$this->updateMenuItems();
 		if ( isset($file))
 		{
-			$sqlFile = $this->path . basename($file);
-			if ( file_exists($sqlFile))
-			{
-				$request = Yii::$app->getRequest();
-				$request->sendFile(basename($sqlFile),file_get_contents($sqlFile));
-			}
+			$request = Yii::$app->getRequest();
+			$request->sendFile(basename($sqlFile),file_get_contents($sqlFile));
+			
 		}
 		throw new HttpException(404, Yii::t('app', 'File not found'));
 	}
