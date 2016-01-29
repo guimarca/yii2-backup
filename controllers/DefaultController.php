@@ -302,8 +302,8 @@ class DefaultController extends Controller
 				break;
 			default:
 				{
-					$this->menu[] = array('label'=>Yii::t('app', 'List Backup') , 'url'=>array('index'));
-					$this->menu[] = array('label'=>Yii::t('app', 'Create Backup') , 'url'=>array('create'));
+				//	$this->menu[] = array('label'=>Yii::t('app', 'List Backup') , 'url'=>array('index'));
+					$this->menu[] = array('label'=>Yii::t('app', 'New Backup') , 'url'=>array('create'));
 					$this->menu[] = array('label'=>Yii::t('app', 'Upload Backup') , 'url'=>array('upload'));
 				//	$this->menu[] = array('label'=>Yii::t('app', 'Restore Backup') , 'url'=>array('restore'));
 				//	$this->menu[] = array('label'=>Yii::t('app', 'Clean Database') , 'url'=>array('clean'));
