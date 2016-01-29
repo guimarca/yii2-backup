@@ -14,6 +14,7 @@ class DefaultController extends Controller
 	public $_path = null;
 	public $back_temp_file = 'db_backup_';
 	//public $layout = '//layout2';
+	
 	protected function getPath()
 	{
 		if ( isset ($this->module->path )) $this->_path = $this->module->path;
@@ -25,6 +26,7 @@ class DefaultController extends Controller
 		}
 		return $this->_path;
 	}
+	
 	public function execSqlFile($sqlFile)
 	{
 		$message = "ok";
@@ -42,6 +44,7 @@ class DefaultController extends Controller
 		}
 		return $message;
 	}
+	
 	public function getColumns($tableName)
 	{
 		$sql = 'SHOW CREATE TABLE '.$tableName;
@@ -62,6 +65,7 @@ class DefaultController extends Controller
 			return $create_query;
 		}
 	}
+	
 	public function getData($tableName)
 	{
 		$sql = 'SELECT * FROM '.$tableName;
@@ -97,6 +101,7 @@ class DefaultController extends Controller
 			return $data_string;
 		}
 	}
+	
 	public function getTables($dbName = null)
 	{
 		$sql = 'SHOW TABLES';
@@ -104,6 +109,7 @@ class DefaultController extends Controller
 		$tables = $cmd->queryColumn();
 		return $tables;
 	}
+	
 	public function StartBackup($addcheck = true)
 	{
 		$this->file_name =  $this->path . $this->back_temp_file . date('Y.m.d_H.i.s') . '.sql';
@@ -123,6 +129,7 @@ class DefaultController extends Controller
 		$this->writeComment('START BACKUP');
 		return true;
 	}
+	
 	public function EndBackup($addcheck = true)
 	{
 		fwrite ( $this->fp, '-- -------------------------------------------'.PHP_EOL );
@@ -137,12 +144,14 @@ class DefaultController extends Controller
 		fclose($this->fp);
 		$this->fp = null;
 	}
+	
 	public function writeComment($string)
 	{
 		fwrite ( $this->fp, '-- -------------------------------------------'.PHP_EOL );
 		fwrite ( $this->fp, '-- '.$string .PHP_EOL );
 		fwrite ( $this->fp, '-- -------------------------------------------'.PHP_EOL );
 	}
+	
 	public function actionCreate()
 	{
 		$tables = $this->getTables();
@@ -163,6 +172,7 @@ class DefaultController extends Controller
 		$this->EndBackup();
 		$this->redirect(array('index'));
 	}
+	
 	public function actionClean($redirect = true)
 	{
 		$ignore = array('tbl_user','tbl_user_role','tbl_event');
@@ -191,6 +201,7 @@ class DefaultController extends Controller
 		Yii::$app->session->setFlash('success', $message);
 		return $this->redirect(array('index'));
 	}
+	
 	public function actionDelete($id)
 	{
 	    $list = $this->getFileList();
@@ -205,6 +216,7 @@ class DefaultController extends Controller
 		else throw new HttpException(404, Yii::t('app', 'File not found'));
 		$this->redirect(array('index'));
 	}
+	
 	public function actionDownload($id = null)
 	{
 		$list = $this->getFileList();
@@ -213,12 +225,15 @@ class DefaultController extends Controller
 		if ( isset($file))
 		{
 			$sqlFile = $this->path . basename($file);
-			$request = Yii::$app->getRequest();
-			$request->sendFile(basename($sqlFile),file_get_contents($sqlFile));
+			//$request = Yii::$app->getRequest();
+
+			$response = Yii::$app->getResponse();
+			$response->sendFile(basename($sqlFile),file_get_contents($sqlFile));
 			
 		}
 		throw new HttpException(404, Yii::t('app', 'File not found'));
 	}
+	
 	protected function getFileList()
 	{
 	    $path = $this->path;
@@ -232,6 +247,7 @@ class DefaultController extends Controller
 	    }
 	    return $list;
 	}
+	
 	public function actionIndex()
 	{
 		//$this->layout = 'column1';
@@ -254,6 +270,7 @@ class DefaultController extends Controller
 				'dataProvider' => $dataProvider,
 		));
 	}
+	
 	public function actionRestore($file = null)
 	{
 		$this->updateMenuItems();
@@ -266,6 +283,7 @@ class DefaultController extends Controller
 		$this->execSqlFile($sqlFile);
 		return  $this->render('restore',array('error'=>$message));
 	}
+	
 	public function actionUpload()
 	{
 		$model= new UploadForm();
@@ -281,6 +299,7 @@ class DefaultController extends Controller
 		}
 		return $this->render('upload',array('model'=>$model));
 	}
+	
 	protected function updateMenuItems($model = null)
 	{
 		// create static model if model is null
