@@ -6,7 +6,7 @@
 $this->params ['breadcrumbs'] [] = [ 
 		'label' => 'Manage',
 		'url' => array (
-				'index' 
+			'index' 
 		) 
 ];
 ?>
@@ -31,8 +31,8 @@ echo $this->render ( '_list', array (
 		<div class="col-md-4">
 			<?php
 			use yii\widgets\Menu;
-echo Menu::widget ( [ 
-					'items' => $this->context->menu 
+			echo Menu::widget ( [ 
+				'items' => $this->context->menu 
 			] );
 			?>
 
