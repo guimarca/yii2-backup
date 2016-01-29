@@ -205,7 +205,7 @@ class DefaultController extends Controller
 		else throw new HttpException(404, Yii::t('app', 'File not found'));
 		$this->redirect(array('index'));
 	}
-	public function actionDownload($file = null)
+	public function actionDownload($id = null)
 	{
 		$list = $this->getFileList();
 		$file = $list[$id];
