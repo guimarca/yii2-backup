@@ -212,8 +212,9 @@ class DefaultController extends Controller
 		$this->updateMenuItems();
 		if ( isset($file))
 		{
+			$sqlFile = $this->path . basename($file);
 			$request = Yii::$app->getRequest();
-			$request->sendFile(basename($file),file_get_contents($file));
+			$request->sendFile(basename($sqlFile),file_get_contents($sqlFile));
 			
 		}
 		throw new HttpException(404, Yii::t('app', 'File not found'));
