@@ -12,7 +12,7 @@ echo GridView::widget([
 			            'label' => 'Size',
 			            'value' => function ($data)
 			            {
-			                $type = "KB";
+			                $type = "MB";
 			                switch($type){
 			                    case "KB":
 			                        $filesize = $data['size'] * .0009765625; // bytes to KB
